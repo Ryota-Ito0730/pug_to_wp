@@ -73,7 +73,7 @@ import {htmlReplaceRules, phpReplaceRules} from "./gulp/replaceRules.js";
 
 // 独自ルールによる置換処理(HTML)
 const compilePugToHtml = () => {
-  let stream = src(pathObj.pug.src).pipe(pug({ pretty: true }));  
+  let stream = src(pathObj.pug.src).pipe(pug({ pretty: true })); 
   htmlReplaceRules.forEach(rule => {
     stream = stream.pipe(replace(rule.pattern, rule.replacement));
   });
