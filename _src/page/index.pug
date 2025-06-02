@@ -1,0 +1,33 @@
+doctype html
+html(lang="ja")
+  -const headTitle = "page";
+  -const directoryPath = "page";
+  include inc/_head.pug
+  body 
+    include inc/_header.pug
+    main.main 
+      .main__inner
+        .mv 
+          .mv__inner
+            img.mv__img(src="/assets/img/page/mv.png", alt="PHOTO BOOKページのイメージ画像。建物の屋根と青空が強調されて撮影されている。")
+        section.sec.sec--index
+          .sec__inner.sec__inner--index
+            .content.content--index--top
+              h2.font-title INDEX
+              .content__inner.content__inner--index
+                include inc/_list.pug
+            .content.content--index--bottom
+              include inc/_images.pug
+        section.sec.sec--detail
+          .sec__inner.sec__inner--detail
+            .content.content--detail
+              h2.font-title DETAIL
+              .content__inner.content__inner--detail
+                .content-left
+                  include inc/_table.pug          
+                .content-right.font-text
+                  .content-right__inner
+                    p.content__text.first テキストテキストテキストテキストテキストテキストテキストテキストテキスト
+                    p.content__text テキストテキストテキストテキストテキストテキストテキストテキストテキスト
+                    a.link(href="#") オンラインストアで見る
+    include inc/_footer.pug
