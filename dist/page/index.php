@@ -24,7 +24,7 @@
         </div>
         <section class="sec sec--index">
           <div class="sec__inner sec__inner--index">
-            <div class="content content--index--top">
+            <div class="content content--index--top">テスト
               <h2 class="font-title"><?php the_title(); ?></h2>
               <div class="content__inner content__inner--index">
                 <ul class="list">

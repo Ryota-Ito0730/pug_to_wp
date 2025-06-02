@@ -24,6 +24,9 @@ const browserSyncStart = (done) => {
 // Pugのコンパイル用プラグイン
 import pug from "gulp-pug";
 
+// Pugのコンパイル後、phpファイルを生成する(拡張子変更)
+import rename from "gulp-rename";
+
 // SassをDartSassでコンパイル
 import * as dartSass from "sass";
 import gulpSass from "gulp-sass";
@@ -62,11 +65,44 @@ const compileSass = () => {
 /**
  * Pugをコンパイルするタスク
  */
-const compilePug = () => {
+const compilePugToHtml = () => {
   return src(pathObj.pug.src)
-    .pipe(pug({ pretty: true }))
+    .pipe(pug({
+      pretty: true,
+      filters: {
+        filterHtml: function (wp_the_title) {
+          return wp_the_title;
+        },
+      },
+    }))
+    .pipe(dest(pathObj.pug.dist));
+};
+
+
+const compilePugToPHP = () => {
+  return src(pathObj.pug.src)
+    .pipe(pug({
+      pretty: true,
+      filters: {
+        filterHtml: function (wp_the_title) {
+          return wp_the_title + "テスト";
+        },
+      },
+    }))
+    .pipe(
+      rename({ 
+        extname: ".php" 
+      }))
     .pipe(dest(pathObj.pug.dist))
 };
+
+
+
+
+
+
+
+
 
 /**
  * 画像を圧縮します
@@ -92,7 +128,8 @@ const convertImage = () => {
  */
 const watchFiles = () => {
   watch(pathObj.sass.src, compileSass);
-  watch(pathObj.pug.src, series(compilePug,browserSyncReload));
+  watch(pathObj.pug.src, series(compilePugToHtml,browserSyncReload));
+  watch(pathObj.pug.src, series(compilePugToPHP,browserSyncReload));
   watch(pathObj.img.src, series(convertImage,browserSyncReload));
 };
 
