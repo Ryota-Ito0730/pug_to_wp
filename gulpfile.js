@@ -45,9 +45,10 @@ import mozjpeg from "imagemin-mozjpeg";
 // import webp from "gulp-webp";
 
 // 各タスクで指定するパスを読み込み
-import pathObj from "./gulpfilePathConfig.js";
+import pathObj from "./gulp/filePathConfig.js";
 
-/* Sass(SCSS)をコンパイルするタスク
+/** 
+ * Sass(SCSS)をコンパイルするタスク
  */
 const compileSass = () => {
   return src(pathObj.sass.src)
@@ -62,46 +63,32 @@ const compileSass = () => {
     .pipe(browserSync.stream());
 };
 
+
 /**
  * Pugをコンパイルするタスク
  */
+// 独自ルールに基づきpugに記載した内容からHTMLとPHPファイルを同時生成する際、
+// PHP側はWordPressのテンプレートタグやループ処理に置換します
+import {htmlReplaceRules, phpReplaceRules} from "./gulp/replaceRules.js";
+
+// 独自ルールによる置換処理(HTML)
 const compilePugToHtml = () => {
-  return src(pathObj.pug.src)
-    .pipe(pug({
-      pretty: true,
-      filters: {
-        filterHtml: function (wp_the_title) {
-          return wp_the_title;
-        },
-      },
-    }))
-    .pipe(dest(pathObj.pug.dist));
+  let stream = src(pathObj.pug.src).pipe(pug({ pretty: true }));  
+  htmlReplaceRules.forEach(rule => {
+    stream = stream.pipe(replace(rule.pattern, rule.replacement));
+  });
+  return stream.pipe(dest(pathObj.pug.dist));
 };
-
-
+// 独自ルールによる置換処理(PHP)
 const compilePugToPHP = () => {
-  return src(pathObj.pug.src)
-    .pipe(pug({
-      pretty: true,
-      filters: {
-        filterHtml: function (wp_the_title) {
-          return wp_the_title + "テスト";
-        },
-      },
-    }))
-    .pipe(
-      rename({ 
-        extname: ".php" 
-      }))
+  let stream = src(pathObj.pug.src).pipe(pug({ pretty: true }));
+  phpReplaceRules.forEach(rule => {
+    stream = stream.pipe(replace(rule.pattern, rule.replacement));
+  });
+  return stream
+    .pipe(rename({ extname: ".php" }))// PHP側は明示的に拡張子をphpに変更する
     .pipe(dest(pathObj.pug.dist))
 };
-
-
-
-
-
-
-
 
 
 /**

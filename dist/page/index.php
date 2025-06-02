@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pageddd</title>
+    <title>page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&amp;display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
         </div>
         <section class="sec sec--index">
           <div class="sec__inner sec__inner--index">
-            <div class="content content--index--top">テスト
+            <div class="content content--index--top">
               <h2 class="font-title"><?php the_title(); ?></h2>
               <div class="content__inner content__inner--index">
                 <ul class="list">
@@ -49,7 +49,7 @@
         <section class="sec sec--detail">
           <div class="sec__inner sec__inner--detail">
             <div class="content content--detail">
-              <h2 class="font-title">DETAIL</h2>
+              <h2 class="font-title"><?php the_title(); ?></h2>
               <div class="content__inner content__inner--detail">
                 <div class="content-left">
                   <table class="table font-text">
