@@ -20,7 +20,7 @@
     <main class="main"> 
       <div class="main__inner">
         <div class="mv"> 
-          <div class="mv__inner"><img class="mv__img" src="<?php echo get_template_directory_uri(); ?>" alt="PHOTO BOOKページのイメージ画像。建物の屋根と青空が強調されて撮影されている。"></div>
+          <div class="mv__inner"><img class="mv__img" src="<?php echo get_template_directory_uri(); ?>/assets/img/page/mv.png" alt="PHOTO BOOKページのイメージ画像。建物の屋根と青空が強調されて撮影されている。"></div>
         </div>
         <section class="sec sec--index">
           <div class="sec__inner sec__inner--index">

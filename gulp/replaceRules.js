@@ -51,7 +51,7 @@ export const phpReplaceRules = [
   },
   {
     pattern: /wpGetTDUri\((.*?)\)/g,
-    replacement: '<?php echo get_template_directory_uri(); ?>'
+    replacement: '<?php echo get_template_directory_uri(); ?>$1'
   },
 ];
 
